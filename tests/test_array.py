@@ -39,6 +39,29 @@ class TestArrayBasedList(unittest.TestCase):
         clone.delete(0)
         self.assertNotEqual(clone.length(), self.list.length())
 
+    def test_reverse(self):
+        orig = [self.list.get(i) for i in range(self.list.length())]
+        self.list.reverse()
+        for i in range(len(orig)):
+            self.assertEqual(self.list.get(i), orig[len(orig) - 1 - i])
+
+    def test_find1(self):
+        self.assertEqual(self.list.findFirst('C'), 2)
+        self.assertEqual(self.list.findLast('C'), 2)
+        self.assertEqual(self.list.findFirst('X'), -1)
+
+    def test_clear(self):
+        self.list.clear()
+        self.assertEqual(self.list.length(), 0)
+
+    def test_extend(self):
+        other = ArrayBasedList()
+        other.append('X')
+        other.append('Y')
+        self.list.extend(other)
+        self.assertEqual(self.list.length(), 7)
+        self.assertEqual(self.list.get(5), 'X')
+        self.assertEqual(self.list.get(6), 'Y')
 
 if __name__ == '__main__':
     unittest.main()
