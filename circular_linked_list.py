@@ -138,27 +138,92 @@ class CircularLinkedList:
         self.head.next = prev
         self.head = prev
 
+    def findFirst(self, element: str) -> int:
+        if not self.head:
+            return -1
+        index = 0
+        current = self.head
+        while True:
+            if current.data == element:
+                return index
+            current = current.next
+            index += 1
+            if current == self.head:
+                break
+        return -1
+
+    def findLast(self, element: str) -> int:
+        if not self.head:
+            return -1
+        index = 0
+        last_index = -1
+        current = self.head
+        while True:
+            if current.data == element:
+                last_index = index
+            current = current.next
+            index += 1
+            if current == self.head:
+                break
+        return last_index
+
+    def clear(self) -> None:
+        self.head = None
+
+    def extend(self, elements: 'CircularLinkedList') -> None:
+        if not elements.head:
+            return
+
+        current = elements.head
+        while True:
+            self.append(current.data)
+            current = current.next
+            if current == elements.head:
+                break
+
 
 if __name__ == '__main__':
     clist = CircularLinkedList()
     print("Initial length (expected 0):", clist.length())
+
     clist.append('A')
     clist.append('B')
     clist.append('C')
     print("Length after appending A, B, C (expected 3):", clist.length())
+
     clist.insert('D', 0)
     print("Element at index 0 after insert (expected D):", clist.get(0))
     clist.insert('E', 2)
     print("Element at index 2 after insert (expected E):", clist.get(2))
+
     deleted = clist.delete(1)
     print("Deleted element at index 1 (expected A):", deleted)
     print("Length after deletion:", clist.length())
+
     clist.append('B')
     clist.append('B')
     print("Length before deleteAll('B'):", clist.length())
     clist.deleteAll('B')
     print("Length after deleteAll('B'):", clist.length())
+
     cloned = clist.clone()
     print("Length of cloned list (expected same):", cloned.length())
+
     clist.reverse()
     print("First element after reverse:", clist.get(0))
+
+    pos_first = clist.findFirst('C')
+    pos_last = clist.findLast('C')
+    print("findFirst('C') (expected index):", pos_first)
+    print("findLast('C') (expected index):", pos_last)
+
+    clist.clear()
+    print("Length after clear (expected 0):", clist.length())
+
+    list1 = CircularLinkedList()
+    list1.append('X')
+    list1.append('Y')
+    list2 = CircularLinkedList()
+    list2.append('Z')
+    list1.extend(list2)
+    print("Length after extend (expected 3):", list1.length())
