@@ -86,6 +86,58 @@ class CircularLinkedList:
             prev.next = prev.next.next
             return data
 
+    def deleteAll(self, element: str) -> None:
+        if not self.head:
+            return
+
+        while self.head and self.head.data == element:
+            if self.head.next == self.head:
+                self.head = None
+                return
+            else:
+                current = self.head
+                while current.next != self.head:
+                    current = current.next
+                self.head = self.head.next
+                current.next = self.head
+
+        current = self.head
+        while current.next != self.head:
+            if current.next.data == element:
+                current.next = current.next.next
+            else:
+                current = current.next
+
+    def clone(self) -> 'CircularLinkedList':
+        cloned_list = CircularLinkedList()
+        if not self.head:
+            return cloned_list
+
+        current = self.head
+        cloned_list.append(current.data)
+        while current.next != self.head:
+            current = current.next
+            cloned_list.append(current.data)
+        return cloned_list
+
+    def reverse(self) -> None:
+        if not self.head or self.head.next == self.head:
+            return
+
+        prev = None
+        current = self.head
+        start = self.head
+
+        while True:
+            next_node = current.next
+            current.next = prev
+            prev = current
+            current = next_node
+            if current == self.head:
+                break
+        self.head.next = prev
+        self.head = prev
+
 
 if __name__ == '__main__':
     clist = CircularLinkedList()
@@ -101,3 +153,12 @@ if __name__ == '__main__':
     deleted = clist.delete(1)
     print("Deleted element at index 1 (expected A):", deleted)
     print("Length after deletion:", clist.length())
+    clist.append('B')
+    clist.append('B')
+    print("Length before deleteAll('B'):", clist.length())
+    clist.deleteAll('B')
+    print("Length after deleteAll('B'):", clist.length())
+    cloned = clist.clone()
+    print("Length of cloned list (expected same):", cloned.length())
+    clist.reverse()
+    print("First element after reverse:", clist.get(0))
