@@ -18,14 +18,14 @@ class TestCircularLinkedList(unittest.TestCase):
         self.list.insert('Z', 2)
         self.assertEqual(self.list.get(2), 'Z')
         self.assertEqual(self.list.length(), 6)
-        with self.assertRaises(IndexError):
+        with self.assertRaises(ValueError):
             self.list.insert('Q', 100)
 
     def test_delete(self):
         removed = self.list.delete(1)
         self.assertEqual(removed, 'B')
         self.assertEqual(self.list.length(), 4)
-        with self.assertRaises(IndexError):
+        with self.assertRaises(ValueError):
             self.list.delete(10)
 
     def test_deleteAll(self):
