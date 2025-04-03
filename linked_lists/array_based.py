@@ -51,3 +51,45 @@ class ArrayBasedList:
 
     def extend(self, other: 'ArrayBasedList') -> None:
         self.items.extend(other.items.copy())
+
+
+if __name__ == '__main__':
+    alist = ArrayBasedList()
+    print("Initial length (expected 0):", alist.length())
+
+    for char in "ABCDE":
+        alist.append(char)
+    print("Length after appending A, B, C, D, E (expected 5):", alist.length())
+
+    alist.insert('Z', 2)
+    print("Element at index 2 after insert (expected Z):", alist.get(2))
+
+    removed = alist.delete(1)
+    print("Deleted element at index 1 (expected B):", removed)
+
+    alist.append('A')
+    alist.deleteAll('A')
+    print("findFirst('A') (expected -1):", alist.findFirst('A'))
+
+    clone = alist.clone()
+    print("Clone length (expected same as original):", clone.length())
+    clone.delete(0)
+    print("After deleting first element from clone, clone length != original length:", clone.length(), alist.length())
+
+    alist.reverse()
+    print("After reverse, element at index 0 should be last of original list:", alist.get(0))
+
+    print("findFirst('C') (expected index):", alist.findFirst('C'))
+    print("findLast('C') (expected index):", alist.findLast('C'))
+
+    alist.clear()
+    print("Length after clear (expected 0):", alist.length())
+
+    list1 = ArrayBasedList()
+    list1.append('X')
+    list1.append('Y')
+    list2 = ArrayBasedList()
+    list2.append('Z')
+    list1.extend(list2)
+    print("Length after extend (expected 3):", list1.length())
+    print("Elements after extend:", list1.items)
