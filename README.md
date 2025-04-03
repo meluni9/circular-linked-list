@@ -4,6 +4,8 @@
 This project demonstrates the implementation of a **singly linked circular list** and a list based on built-in arrays/lists in Python. The project includes a full set of **unit tests** to ensure correctness and a configured **Continuous Integration (CI) pipeline** using GitHub Actions.
 
 ## Variant Calculation and Description
+Group list number is 16
+
 16 % 4 = 0
 
 Variant 0:
